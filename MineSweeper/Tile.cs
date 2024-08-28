@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace MineSweeper
 {
@@ -14,24 +8,18 @@ namespace MineSweeper
     class Tile : Button
     {
 
-        public static event ButtonClicked buttonClicked; 
-                    
-        private bool isBomb {get;}
-        private int boombsAround {  get; set; }
+        private bool IsClicked = true;
+        public bool IsBomb { get; set; }
+        public int BombsAround { get; set; }
+        public int x { get; }
+        public int y { get; }
 
-        public Tile(bool isBomb) {
-            this.isBomb = isBomb;
-
-            Content = "?";
-
-            if (isBomb)
-            {
-                Content += "&"; 
-            }
-
+        public Tile( int x = 0, int y = 0, bool isBomb = false)
+        {
+            this.IsBomb = isBomb;
+            this.x = x;
+            this.y = y;
         }
-
-
 
     }
 }

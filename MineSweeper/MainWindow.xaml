@@ -8,19 +8,24 @@
         Title="MainWindow" Height="500" Width="500">
     <StackPanel 
         x:Name="root">
-        
 
-        <UniformGrid
-            x:Name="gameBoard"
+        <Label 
+            Content="Minesweep"
+            />
+
+        <Button 
+            Content="Restart"
+            x:Name="btnRestart"
+            Width="60"
+            Height="30"
+            Click="btnRestart_Click"
+            />
+
+        <UniformGrid 
+            x:Name="uGridBoard"
             Width="500"
-            Height="500">
+            Height="500"/>
 
-            
-            
-            
-        </UniformGrid>
-        
-        
     </StackPanel>
         
 </Window>
