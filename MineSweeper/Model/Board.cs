@@ -1,25 +1,26 @@
 ﻿using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
-namespace MineSweeper
+namespace MineSweeper.Model
 {
+    
     internal class Board : UniformGrid
     {
-        private readonly bool IsDebug = true;
-        private readonly int Size;
-        private int NoOfBombs;
-        private Tile[,] tiles;
+        private const bool IsDebug = true;
+        private readonly int _size;
+        private readonly int _noOfBombs;
+        private readonly Tile[,] _tiles;
 
         public Board(int size, int noOfBombs = 5) {
 
-            Size = size;
-            NoOfBombs = noOfBombs;
+            _size = size;
+            _noOfBombs = noOfBombs;
             // creating an array of tiles.
-            tiles = new Tile[size, size];
+            _tiles = new Tile[size, size];
 
-            // determening how maney rows and colums to add to the grid.
-            Columns = Size;
-            Rows = Size;
+            // determining how many rows and columns to add to the grid.
+            Columns = _size;
+            Rows = _size;
 
             GenerateTiles();
             CalculateBombsAround();
@@ -33,24 +34,26 @@ namespace MineSweeper
         private void GenerateTiles()
         {
             // looping thrugh all rows.
-            for (int i = 0; i < Size; i++)
+            for (int i = 0; i < _size; i++)
             {
                 // looping thrugh all colums
-                for (int j = 0; j < Size; j++)
+                for (int j = 0; j < _size; j++)
                 {
                     // creating a new tile.
                     Tile tile = new Tile(i, j);
+                    
+                    
 
                     // adding tile to the board.
-                    this.Children.Add(tile);
+                    Children.Add(tile);
                     
                     // adding tile to the list of tiles.
-                    tiles[i, j] = tile;
+                    _tiles[i, j] = tile;
                 }
 
             }
             // assigning isBomb to some of the bombs
-            AssignBomb(NoOfBombs);
+            AssignBomb(_noOfBombs);
         }
 
         /// <summary>
@@ -64,16 +67,16 @@ namespace MineSweeper
             while (actualBombs != noBombs)
             {
 
-                int col = rng.Next(0, Size);
-                int row = rng.Next(0, Size);
-                Tile tile = tiles[col, row];
+                int col = rng.Next(0, _size);
+                int row = rng.Next(0, _size);
+                Tile tile = _tiles[col, row];
 
 
                 if (!tile.IsBomb)
                 {
                     tile.IsBomb = true;
                     actualBombs++;
-                    tile.Content = "B";
+                    
 
                 }
 
@@ -88,13 +91,13 @@ namespace MineSweeper
         private void CalculateBombsAround()
         {
             // looping thrugh all tiles in the 2D array
-            for (int i = 0; i < Size; ++i)
+            for (int i = 0; i < _size; ++i)
             {
-                for (int j = 0; j < Size; ++j)
+                for (int j = 0; j < _size; ++j)
                 {
 
                     // Storing current working tile.
-                    Tile tile = tiles[i, j];
+                    Tile tile = _tiles[i, j];
 
                     // we dont want to calculate if tile is a bomb
                     if (!tile.IsBomb)
@@ -102,7 +105,7 @@ namespace MineSweeper
                         int bombsAround = 0;
 
                         // getching all tiles sourounding the selected tile.
-                        foreach (Tile item in GetBorderingTiles(tile, tiles))
+                        foreach (Tile item in GetBorderingTiles(tile, _tiles))
                         {
                             if (item.IsBomb) bombsAround++;
                         }
@@ -113,10 +116,7 @@ namespace MineSweeper
                             tile.Content = bombsAround.ToString();
                         }
                     }
-                    else if (IsDebug)
-                    {
-                        tile.Background = Brushes.Red;
-                    }
+                    
                 }
             }
 
@@ -138,11 +138,11 @@ namespace MineSweeper
             {
                 for (int width = -1; width <= 1; width++)
                 {
-                    int relativeI = tile.x + height;
-                    int relativeJ = tile.y + width;
+                    int relativeI = tile.X + height;
+                    int relativeJ = tile.Y + width;
 
                     // Ensure we are not out of bounds or checking the current tile
-                    if (relativeI >= 0 && relativeI < Size && relativeJ >= 0 && relativeJ < Size && !(height == 0 && width == 0))
+                    if (relativeI >= 0 && relativeI < _size && relativeJ >= 0 && relativeJ < _size && !(height == 0 && width == 0))
                     {
                         borderingTiles.Add(tiles[relativeI, relativeJ]);
                     }

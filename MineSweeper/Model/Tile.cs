@@ -1,25 +1,34 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Media;
 
-namespace MineSweeper
+namespace MineSweeper.Model
 {
-
-    public delegate void ButtonClicked(int i);
-
     class Tile : Button
     {
-
         private bool IsClicked = true;
         public bool IsBomb { get; set; }
+        public SolidColorBrush TileColor; 
         public int BombsAround { get; set; }
-        public int x { get; }
-        public int y { get; }
+        public int X { get; }
+        public int Y { get; }
 
         public Tile( int x = 0, int y = 0, bool isBomb = false)
         {
-            this.IsBomb = isBomb;
-            this.x = x;
-            this.y = y;
+            IsBomb = isBomb;
+            X = x;
+            Y = y;
+            
+            this.TileColor = isBomb ? Colors.BombColor : Colors.FlipedTileColor;
+            Background = Colors.TileColor;
         }
+
+   
+
+        
+        
+        
+        
+        
 
     }
 }

@@ -1,14 +1,5 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using MineSweeper.Model;
 
 namespace MineSweeper
 {
@@ -17,7 +8,7 @@ namespace MineSweeper
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        private int _boardSize = 10; 
         
         public MainWindow()
         {
@@ -38,7 +29,7 @@ namespace MineSweeper
                 uGridBoard.Children.Clear();
             }
 
-            Board board = new Board(10);
+            Board board = new Board(_boardSize);
             uGridBoard.Children.Add(board);
         }
     }
