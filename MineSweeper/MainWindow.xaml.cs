@@ -8,7 +8,8 @@ namespace MineSweeper
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int _boardSize = 10; 
+        // the board is a squre, therefore the with and height are both the same. this is called boardsize.
+        private int _boardSize = 10;
         
         public MainWindow()
         {
@@ -29,7 +30,7 @@ namespace MineSweeper
                 uGridBoard.Children.Clear();
             }
 
-            Board board = new Board(_boardSize);
+            Board board = new Board(_boardSize, 10);
             uGridBoard.Children.Add(board);
         }
     }

@@ -1,11 +1,14 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace MineSweeper.Model
 {
-    class Tile : Button
+    public class Tile : Button
     {
-        private bool IsClicked = true;
+
+        public bool Revealed = false;
         public bool IsBomb { get; set; }
         public SolidColorBrush TileColor; 
         public int BombsAround { get; set; }
@@ -17,17 +20,26 @@ namespace MineSweeper.Model
             IsBomb = isBomb;
             X = x;
             Y = y;
+        }
+        
+        public void Reveal()
+        {
+            Revealed = true; 
+            // Setting color
+            Background = IsBomb ? Colors.BombColor : Colors.FlipedTileColor;
             
-            this.TileColor = isBomb ? Colors.BombColor : Colors.FlipedTileColor;
-            Background = Colors.TileColor;
+            // setting text in cell
+
+            if (IsBomb)
+            {
+                Content = "B";
+            } else if (BombsAround > 0)
+            {
+                Content = BombsAround;
+            }
+            
         }
 
-   
-
-        
-        
-        
-        
         
 
     }

@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls.Primitives;
+﻿using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 namespace MineSweeper.Model
@@ -6,7 +9,7 @@ namespace MineSweeper.Model
     
     internal class Board : UniformGrid
     {
-        private const bool IsDebug = true;
+        
         private readonly int _size;
         private readonly int _noOfBombs;
         private readonly Tile[,] _tiles;
@@ -24,7 +27,7 @@ namespace MineSweeper.Model
 
             GenerateTiles();
             CalculateBombsAround();
-
+            
         }
 
 
@@ -42,8 +45,8 @@ namespace MineSweeper.Model
                     // creating a new tile.
                     Tile tile = new Tile(i, j);
                     
+                    tile.Click += TileOnClick; 
                     
-
                     // adding tile to the board.
                     Children.Add(tile);
                     
@@ -54,6 +57,27 @@ namespace MineSweeper.Model
             }
             // assigning isBomb to some of the bombs
             AssignBomb(_noOfBombs);
+        }
+
+        private void TileOnClick(object sender, RoutedEventArgs e)
+        {
+            
+            Tile tile = sender as Tile;
+            tile.Reveal();
+
+            if (tile.BombsAround == 0 ) {
+            
+                foreach (var i in GetBorderingTiles(tile, _tiles))
+                {
+                    if (!i.Revealed && !i.IsBomb)
+                    {
+                        i.Reveal();
+                        TileOnClick(i, e);
+                    }
+                }
+            }
+            
+
         }
 
         /// <summary>
@@ -111,10 +135,7 @@ namespace MineSweeper.Model
                         }
 
                         tile.BombsAround = bombsAround;
-                        if (IsDebug && bombsAround > 0)
-                        {
-                            tile.Content = bombsAround.ToString();
-                        }
+                       
                     }
                     
                 }
@@ -152,6 +173,11 @@ namespace MineSweeper.Model
             return borderingTiles; 
 
         }
+        
+        
+
+        
+
 
 
 
