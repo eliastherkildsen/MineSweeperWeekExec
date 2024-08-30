@@ -6,20 +6,46 @@
         xmlns:local="clr-namespace:MineSweeper"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="500">
+
+    
     <StackPanel 
         x:Name="root">
+        
+            <!-- Header -->
+            <DockPanel HorizontalAlignment="Center">
+                
+                <!-- Time elapsed-->
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Time elapsed"/>
+                    <Label
+                        x:Name="labTimeElapsed"
+                        Content="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                    />
+                </StackPanel>
+                
+                <Button 
+                    Content="Restart"
+                    x:Name="btnRestart"
+                    Width="100"
+                    Height="50"
+                    Click="btnRestart_Click"
+                    />
+                
+                <!-- Number of clicks-->
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Content="Number of clicks"/>
+                    <Label
+                        x:Name="labNoClicks"
+                        Content="{Binding NoClicks}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"/>
 
-        <Label 
-            Content="Minesweep"
-            />
+                </StackPanel>
+                
+            </DockPanel>
 
-        <Button 
-            Content="Restart"
-            x:Name="btnRestart"
-            Width="60"
-            Height="30"
-            Click="btnRestart_Click"
-            />
 
         <UniformGrid 
             x:Name="uGridBoard"
