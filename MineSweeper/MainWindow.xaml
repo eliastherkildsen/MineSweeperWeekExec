@@ -5,36 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MineSweeper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="500">
-
+        Title="Minesweeper" Height="600" Width="500">
+    <!-- VARIABLES -->
+    <Window.Resources>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#C0C0C0"></SolidColorBrush>
+    </Window.Resources>
     
     <StackPanel 
-        x:Name="root">
+        x:Name="root"
+        Background="{StaticResource BackgroundColor}"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        >
         
-            <!-- Header -->
-            <DockPanel HorizontalAlignment="Center">
-                
+<!-- Header -->
+            <DockPanel Background="Red">
                 <!-- Time elapsed-->
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="Time elapsed"/>
+                <StackPanel HorizontalAlignment="Left" 
+                            VerticalAlignment="Center"
+                            >
+                    <Label Content="Total time (s)"/>
                     <Label
                         x:Name="labTimeElapsed"
-                        Content="0"
+                        Content="{Binding ElapsedTime}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                     />
                 </StackPanel>
                 
-                <Button 
-                    Content="Restart"
-                    x:Name="btnRestart"
-                    Width="100"
-                    Height="50"
-                    Click="btnRestart_Click"
-                    />
+                <!-- game state image-->
+                <Image 
+                    x:Name="ImageGameState"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="60"
+                    Height="60">
+                    
+                    
+                    
+                </Image>
+
                 
                 <!-- Number of clicks-->
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Label Content="Number of clicks"/>
                     <Label
                         x:Name="labNoClicks"
@@ -43,15 +56,41 @@
                         VerticalAlignment="Center"/>
 
                 </StackPanel>
-                
             </DockPanel>
 
-
+<!-- Body -->
         <UniformGrid 
             x:Name="uGridBoard"
             Width="500"
-            Height="500"/>
+            Height="500"
+            Background="Blue"
+            />
 
+<!-- Footer -->
+        <DockPanel HorizontalAlignment="Center">
+                    
+            
+            <!-- Number of bombs -->
+            <DockPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Label Content="Number of bombs"/>
+                <Label x:Name="LabelNoBombs" Content="{Binding NoBombs}"/>
+            </DockPanel>
+            
+            <!-- Restart button -->
+            
+            <Button 
+                Content="Restart game"
+                x:Name="btnRestart"
+                Click="btnRestart_Click"
+                Width="200"
+            />
+            
+            
+                
+            
+        </DockPanel>    
+            
+            
     </StackPanel>
         
 </Window>

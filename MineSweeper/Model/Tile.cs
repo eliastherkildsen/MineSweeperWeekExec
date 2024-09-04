@@ -17,22 +17,33 @@ namespace MineSweeper.Model
             Y = y;
         }
         
+        /// <summary>
+        /// Method for revaling tile, and its contets to the UI. 
+        /// </summary>
         public void Reveal()
         {
             Revealed = true;
             IsEnabled = false;
-            // Setting color
-            Background = IsBomb ? Colors.BombColor : Colors.FlipedTileColor;
             
             // setting text in cell
             if (IsBomb)
             {
                 Content = "B";
-                
-            } else if (BombsAround > 0)
+                Background = Colors.BombColor; 
+            } 
+            
+            else if (BombsAround > 0)
             {
                 Content = BombsAround;
+                Background = Colors.FlipedTileColor; 
             }
+
+            else
+            {
+                Background = Colors.EmptyTileColor; 
+            }
+            
+            
             
             
             

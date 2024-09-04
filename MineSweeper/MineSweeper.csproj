@@ -8,4 +8,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\GameStateIdleIcon.jpg" />
+    <Resource Include="Resources\GameStateIdleIcon.jpg" />
+    <None Remove="Resources\GameStateInProgressIcon.jpg" />
+    <Resource Include="Resources\GameStateInProgressIcon.jpg" />
+    <None Remove="Resources\GameStateLostIcon.jpg" />
+    <Resource Include="Resources\GameStateLostIcon.jpg" />
+    <None Remove="Resources\GameStateWonIcon.jpg" />
+    <Resource Include="Resources\GameStateWonIcon.jpg" />
+    <None Remove="Resources\test.png" />
+  </ItemGroup>
+
 </Project>

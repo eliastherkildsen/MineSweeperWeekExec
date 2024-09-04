@@ -1,16 +1,17 @@
-﻿using MineSweeper.Model;
+﻿using System.DirectoryServices.ActiveDirectory;
+using MineSweeper.Model;
 
 namespace MineSweeper.Util;
 
 public class BoardUtil
 {
     /// <summary>
-    /// Method for fetching the sourounding tiles of a given tile
+    /// Method for fetching the surrounding tiles of a given tile
     /// </summary>
     /// <param name="tile"></param>
     /// <param name="tiles"></param>
     /// <returns></returns>
-    public static List<Tile> GetBorderingTiles(Tile tile, Tile[,] tiles, int size)
+    public static List<Tile> GetBorderingTiles(Tile tile, Tile[,] tiles)
     {
         List<Tile> borderingTiles = new List<Tile>();
 
@@ -23,7 +24,7 @@ public class BoardUtil
                 int relativeJ = tile.Y + width;
 
                 // Ensure we are not out of bounds or checking the current tile
-                if (relativeI >= 0 && relativeI < size && relativeJ >= 0 && relativeJ < size && !(height == 0 && width == 0))
+                if (relativeI >= 0 && relativeI < tiles.GetLength(0) && relativeJ >= 0 && relativeJ < tiles.GetLength(1) && !(height == 0 && width == 0))
                 {
                     borderingTiles.Add(tiles[relativeI, relativeJ]);
                 }
@@ -37,7 +38,7 @@ public class BoardUtil
     /// <summary>
     /// Method for assigning bomb status to a number og bombs.
     /// </summary>
-    public static Tile[,] AssignBomb(int noBombs, Tile[,] tilesList, int size)
+    public static Tile[,] AssignBomb(int noBombs, Tile[,] tilesList)
     {
         int actualBombs = 0;
         Random rng = new Random();
@@ -45,14 +46,15 @@ public class BoardUtil
         while (actualBombs != noBombs)
         {
 
-            int col = rng.Next(0, size);
-            int row = rng.Next(0, size);
+            int col = rng.Next(0, tilesList.GetLength(0));
+            int row = rng.Next(0, tilesList.GetLength(1));
             Tile tile = tilesList[col, row];
 
 
             if (!tile.IsBomb)
             {
                 tile.IsBomb = true;
+                tile.Content = "B"; 
                 actualBombs++;
             }
 
@@ -63,39 +65,45 @@ public class BoardUtil
     }
     
     /// <summary>
-    /// Method for getting the number of bombs souranding a tile.
+    /// Method for getting the number of bombs sounding a tile.
     /// </summary>
     /// <param name="tile"></param>
-    public static void CalculateBombsAround(int _size, ref Tile[,] _tiles)
+    public static Tile[,] CalculateBombsAround(Tile[,] tiles)
     {
-        // looping thrugh all tiles in the 2D array
-        for (int i = 0; i < _size; ++i)
+
+        Tile[,] tileArray = tiles; 
+        
+        // looping through all tiles in the 2D array
+        for (int i = 0; i < tileArray.GetLength(0); ++i) // tiles.GetLength(0) dimension 0  
         {
-            for (int j = 0; j < _size; ++j)
+            for (int j = 0; j < tileArray.GetLength(1); ++j) // tiles.GetLength(0) dimension 1 
             {
 
                 // Storing current working tile.
-                Tile tile = _tiles[i, j];
+                Tile tile = tileArray[i, j];
 
-                // we dont want to calculate if tile is a bomb
-                if (!tile.IsBomb)
+                // we don't want to calculate if tile is a bomb
+                if (tile.IsBomb) continue;
+                
+                int bombsAround = 0;
+
+                // fetching all tiles surrounding the selected tile.
+                foreach (Tile item in BoardUtil.GetBorderingTiles(tile, tileArray))
                 {
-                    int bombsAround = 0;
-
-                    // getching all tiles sourounding the selected tile.
-                    foreach (Tile item in BoardUtil.GetBorderingTiles(tile, _tiles, _size))
-                    {
-                        if (item.IsBomb) bombsAround++;
-                    }
-
-                    tile.BombsAround = bombsAround;
-                       
+                    if (item.IsBomb) bombsAround++;
                 }
-                    
+
+                tile.BombsAround = bombsAround;
+
             }
         }
 
-
+        return tileArray; 
+        
     }
     
+    
+    
+    
+
 }
