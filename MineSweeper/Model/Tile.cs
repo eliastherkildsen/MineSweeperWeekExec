@@ -1,8 +1,11 @@
-﻿using System.Windows.Controls;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace MineSweeper.Model
 {
-    public class Tile : Button
+    public class Tile : Button, INotifyPropertyChanged
     {
         public bool Revealed;
         public bool IsBomb { get; set; }
@@ -28,26 +31,29 @@ namespace MineSweeper.Model
             // setting text in cell
             if (IsBomb)
             {
-                Content = "B";
-                Background = Colors.BombColor; 
+                Content = "\ud83d\udca3"; // ASCII bomb char. 
+                Background = Brushes.Red;
             } 
             
-            else if (BombsAround > 0)
+            else if (BombsAround >= 1)
             {
                 Content = BombsAround;
-                Background = Colors.FlipedTileColor; 
+                Background = Brushes.Yellow; 
             }
 
             else
             {
-                Background = Colors.EmptyTileColor; 
+                Background = Brushes.Green; 
             }
-            
-            
-            
             
             
         }
 
+        public event PropertyChangedEventHandler? PropertyChanged;
+        
+
+        
     }
+    
+    
 }

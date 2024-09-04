@@ -63,7 +63,8 @@ namespace MineSweeper
         {
             InitializeComponent();
             StartGame();
-            DataContext = this; 
+            DataContext = this;
+            
         }
 
         private void btnRestart_Click(object sender, RoutedEventArgs e)

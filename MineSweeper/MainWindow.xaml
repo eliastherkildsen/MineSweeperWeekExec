@@ -5,92 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MineSweeper"
         mc:Ignorable="d"
-        Title="Minesweeper" Height="600" Width="500">
-    <!-- VARIABLES -->
-    <Window.Resources>
-        <SolidColorBrush x:Key="BackgroundColor" Color="#C0C0C0"></SolidColorBrush>
-    </Window.Resources>
+        Title="Minesweeper" Height="600" Width="500" ResizeMode="NoResize"
+        Background="#F0F0F0">
     
-    <StackPanel 
-        x:Name="root"
-        Background="{StaticResource BackgroundColor}"
-        HorizontalAlignment="Left"
-        VerticalAlignment="Top"
-        >
-        
-<!-- Header -->
-            <DockPanel Background="Red">
-                <!-- Time elapsed-->
-                <StackPanel HorizontalAlignment="Left" 
-                            VerticalAlignment="Center"
-                            >
-                    <Label Content="Total time (s)"/>
-                    <Label
-                        x:Name="labTimeElapsed"
-                        Content="{Binding ElapsedTime}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                    />
-                </StackPanel>
-                
-                <!-- game state image-->
-                <Image 
-                    x:Name="ImageGameState"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="60"
-                    Height="60">
-                    
-                    
-                    
-                </Image>
+    <!-- Resources -->
+    <Window.Resources>
+        <SolidColorBrush x:Key="PrimaryColor" Color="#2E86C1"/>
+        <SolidColorBrush x:Key="SecondaryColor" Color="#5DADE2"/>
+    </Window.Resources>
 
-                
-                <!-- Number of clicks-->
-                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Label Content="Number of clicks"/>
-                    <Label
-                        x:Name="labNoClicks"
-                        Content="{Binding NoClicks}"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"/>
+    <!-- Layout -->
+    <StackPanel Margin="10">
+        <!-- Header -->
+        <DockPanel 
+            Background="{StaticResource PrimaryColor}" Margin="10" HorizontalAlignment="Stretch">
+            
+            <!-- Time Elapsed -->
+            <StackPanel HorizontalAlignment="Left" Margin="10,0">
+                <Label Content="Total time (s)" Foreground="White" FontWeight="Bold"/>
+                <Label x:Name="labTimeElapsed" Content="{Binding ElapsedTime}" Foreground="White"/>
+            </StackPanel>
 
-                </StackPanel>
-            </DockPanel>
+            <!-- Game State Image -->
+            <StackPanel HorizontalAlignment="Center">
+                <Image x:Name="ImageGameState" Width="60" Height="60"/>
+            </StackPanel>
 
-<!-- Body -->
-        <UniformGrid 
-            x:Name="uGridBoard"
-            Width="500"
-            Height="500"
-            Background="Blue"
-            />
+            <!-- Number of Clicks -->
+            <StackPanel HorizontalAlignment="Right" Margin="10,0">
+                <Label Content="Number of clicks" Foreground="White" FontWeight="Bold"/>
+                <Label x:Name="labNoClicks" Content="{Binding NoClicks}" Foreground="White"/>
+            </StackPanel>
+        </DockPanel>
 
-<!-- Footer -->
-        <DockPanel HorizontalAlignment="Center">
-                    
-            
-            <!-- Number of bombs -->
-            <DockPanel HorizontalAlignment="Left" VerticalAlignment="Center">
-                <Label Content="Number of bombs"/>
-                <Label x:Name="LabelNoBombs" Content="{Binding NoBombs}"/>
-            </DockPanel>
-            
-            <!-- Restart button -->
-            
-            <Button 
-                Content="Restart game"
-                x:Name="btnRestart"
-                Click="btnRestart_Click"
-                Width="200"
-            />
-            
-            
-                
-            
-        </DockPanel>    
-            
-            
+        <!-- Game Board -->
+        <UniformGrid x:Name="uGridBoard" 
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Width="400" Height="400"/>
+
+        <!-- Footer -->
+        <DockPanel Background="{StaticResource PrimaryColor}" Margin="10" HorizontalAlignment="Stretch">
+            <!-- Number of Bombs -->
+            <StackPanel HorizontalAlignment="Left" Margin="10,0">
+                <Label Content="Number of bombs" Foreground="White" FontWeight="Bold"/>
+                <Label x:Name="LabelNoBombs" Content="{Binding NoBombs}" Foreground="White"/>
+            </StackPanel>
+
+            <!-- Restart Button -->
+            <Button Content="Restart Game"
+                    x:Name="btnRestart"
+                    Click="btnRestart_Click"
+                    Background="{StaticResource SecondaryColor}"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Width="150"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"/>
+        </DockPanel>
     </StackPanel>
-        
 </Window>
