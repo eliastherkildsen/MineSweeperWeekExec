@@ -2,7 +2,7 @@
 
 namespace MineSweeper.Model
 {
-    
+
     internal class Board : UniformGrid
     {
 
@@ -15,7 +15,7 @@ namespace MineSweeper.Model
         }
         
 
-        public Board(int size, int noBombs) {
+        public Board(int size) {
                 
             _size = size;
             _tiles = new Tile[size, size];

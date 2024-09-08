@@ -25,28 +25,23 @@ namespace MineSweeper.Model
         /// </summary>
         public void Reveal()
         {
-            Revealed = true;
-            IsEnabled = false;
-            
             // setting text in cell
             if (IsBomb)
             {
                 Content = "\ud83d\udca3"; // ASCII bomb char. 
-                Background = Brushes.Red;
             } 
             
             else if (BombsAround >= 1)
             {
                 Content = BombsAround;
-                Background = Brushes.Yellow; 
             }
 
-            else
-            {
-                Background = Brushes.Green; 
-            }
             
-            
+            Revealed = true;
+            IsEnabled = false; 
+
+
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

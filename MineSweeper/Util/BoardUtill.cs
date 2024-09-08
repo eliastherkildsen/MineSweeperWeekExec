@@ -54,7 +54,6 @@ public class BoardUtil
             if (!tile.IsBomb)
             {
                 tile.IsBomb = true;
-                tile.Content = "B"; 
                 actualBombs++;
             }
 

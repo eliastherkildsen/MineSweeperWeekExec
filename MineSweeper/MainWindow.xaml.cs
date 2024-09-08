@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -17,7 +16,7 @@ namespace MineSweeper
 
         // the board is a square, therefore the with and height are both the same. this is called board size.
         private System.Timers.Timer _timer; 
-        private int _boardSize = 10;
+        private const int BoardSize = 10;
 
         private GameState _gameState; 
         public GameState GameState
@@ -47,13 +46,13 @@ namespace MineSweeper
                 OnPropertyChanged();
             }
         }
-        private int _elapsed_time;
+        private int _elapsedTime;
         public int ElapsedTime
         {
-            get { return _elapsed_time; }
+            get { return _elapsedTime; }
             set
             {
-                _elapsed_time = value;
+                _elapsedTime = value;
                 OnPropertyChanged();
             }
         }
@@ -72,7 +71,11 @@ namespace MineSweeper
             GameLost();
             StartGame();
         }
-
+        
+        
+        /// <summary>
+        /// Method for setting up game stat and attributes. 
+        /// </summary>
         private void StartGame()
         {
             // clears the grid if it is already initialized
@@ -96,14 +99,20 @@ namespace MineSweeper
             CreateTimer();
             
         }
-
+        
+        /// <summary>
+        /// Method called when game is lost
+        /// </summary>
         private void GameLost()
         {
             GameState = GameState.GameLost; 
             _timer.Stop();
             _timer.Dispose();
         }
-
+        
+        /// <summary>
+        /// Method called when game is won
+        /// </summary>
         private void GameWon()
         {
             GameState = GameState.GameWon;
@@ -111,6 +120,10 @@ namespace MineSweeper
             _timer.Dispose();
         }
 
+        /// <summary>
+        /// Method for checking if the game is won.
+        /// </summary>
+        /// <returns></returns>
         private bool IsGameWon()
         {
             int totalTiles = _board.tiles.Length; 
@@ -118,7 +131,9 @@ namespace MineSweeper
             return ((_flippedTiles + _noBombs) == totalTiles);
         }
 
-
+        /// <summary>
+        /// Method for creating the game timer, and setting the attributes.
+        /// </summary>
         private void CreateTimer()
         {
             int updateRate = 1000; // calculated in ms
@@ -130,10 +145,14 @@ namespace MineSweeper
             
             }
         }
-
+        
+        /// <summary>
+        /// Method for creating a new game board
+        /// </summary>
+        /// <returns></returns>
         private Board CreateGameBoard()
         {
-            return new Board(_boardSize, _noBombs);
+            return new Board(BoardSize);
         }
         
         /// <summary>
@@ -164,6 +183,11 @@ namespace MineSweeper
             return newTiles; 
         }
         
+        /// <summary>
+        /// Event handler for button click 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TileOnClick(object sender, RoutedEventArgs e)
         {
             // validating that the sender is of type tile. 
@@ -217,11 +241,12 @@ namespace MineSweeper
             }
         }
 
+        /// <summary>
+        /// Method for updating the image reference for game state icon
+        /// </summary>
         private void UpdateGameStateImage()
         {
-
             BitmapImage bitmap; 
-            
             switch (GameState)
             { 
                 

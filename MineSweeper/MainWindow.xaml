@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:MineSweeper"
         mc:Ignorable="d"
         Title="Minesweeper" Height="600" Width="500" ResizeMode="NoResize"
+        Icon="Resources/GameStateWonIcon.jpg" 
         Background="#F0F0F0">
+    
     
     <!-- Resources -->
     <Window.Resources>
@@ -17,8 +19,8 @@
     <!-- Layout -->
     <StackPanel Margin="10">
         <!-- Header -->
-        <DockPanel 
-            Background="{StaticResource PrimaryColor}" Margin="10" HorizontalAlignment="Stretch">
+        <WrapPanel 
+            Background="{StaticResource PrimaryColor}" Margin="10" HorizontalAlignment="Stretch"> 
             
             <!-- Time Elapsed -->
             <StackPanel HorizontalAlignment="Left" Margin="10,0">
@@ -36,7 +38,7 @@
                 <Label Content="Number of clicks" Foreground="White" FontWeight="Bold"/>
                 <Label x:Name="labNoClicks" Content="{Binding NoClicks}" Foreground="White"/>
             </StackPanel>
-        </DockPanel>
+        </WrapPanel>
 
         <!-- Game Board -->
         <UniformGrid x:Name="uGridBoard" 
